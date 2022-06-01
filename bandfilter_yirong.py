@@ -161,30 +161,30 @@ def fir_band_pass(samples, fs, fL, fH, NL, NH, outputType):
 
     return s
 
-def bandfilter_main(infile,outfile):
+def bandfilter_main(infile,outfile,lowfreq=1000,highfreq=12000,width_kernel=500):
     channels, nChannels, sampleRate, ampWidth, nFrames = extract_audio(infile)
     samples = convert_to_mono(channels, nChannels, np.int16)
-    samples_filtered = fir_band_pass(samples, sampleRate, args.lowfreq, args.highfreq, args.width_kernel,
-                                 args.width_kernel, np.int16)[args.width_kernel - 1:-args.width_kernel + 1]
+    samples_filtered = fir_band_pass(samples, sampleRate, lowfreq, highfreq, width_kernel,
+                                 width_kernel, np.int16)[width_kernel - 1:-width_kernel + 1]
     wavfile.write(outfile, sampleRate, samples_filtered)
 
 
-if __name__ == "__main__":
-
-    parser = argparse.ArgumentParser(description='manual to this script')
-    parser.add_argument('--inPath', type=str, default=None)
-    parser.add_argument('--outPath', type=str, default=None)
-    parser.add_argument('--lowfreq', type=int, default=1000)
-    parser.add_argument('--highfreq', type=int, default=12000)
-    parser.add_argument('--width_kernel', type=int, default=500)
-    args = parser.parse_args()
-
-    channels, nChannels, sampleRate, ampWidth, nFrames = extract_audio(args.inPath)
-    samples = convert_to_mono(channels, nChannels, np.int16)
-    samples_filtered = fir_band_pass(samples, sampleRate, args.lowfreq, args.highfreq, args.width_kernel,
-                                                args.width_kernel, np.int16)[
-                       args.width_kernel - 1:-args.width_kernel + 1]
-    wavfile.write(args.outPath, sampleRate, samples_filtered)
+# if __name__ == "__main__":
+#
+#     parser = argparse.ArgumentParser(description='manual to this script')
+#     parser.add_argument('--inPath', type=str, default=None)
+#     parser.add_argument('--outPath', type=str, default=None)
+#     parser.add_argument('--lowfreq', type=int, default=1000)
+#     parser.add_argument('--highfreq', type=int, default=12000)
+#     parser.add_argument('--width_kernel', type=int, default=500)
+#     args = parser.parse_args()
+#
+#     channels, nChannels, sampleRate, ampWidth, nFrames = extract_audio(args.inPath)
+#     samples = convert_to_mono(channels, nChannels, np.int16)
+#     samples_filtered = fir_band_pass(samples, sampleRate, args.lowfreq, args.highfreq, args.width_kernel,
+#                                                 args.width_kernel, np.int16)[
+#                        args.width_kernel - 1:-args.width_kernel + 1]
+#     wavfile.write(args.outPath, sampleRate, samples_filtered)
 
 
 

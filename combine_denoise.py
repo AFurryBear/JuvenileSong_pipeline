@@ -23,15 +23,15 @@ def denoise(input_file,output_file):
 
 
 
-wav_files = sorted(glob.glob('/Volumes/Seagate Expansion Drive/dph069_wav_filtered/*.wav'))
-for start in range(0,len(wav_files),25):
-    end = np.min([len(wav_files), start+25])
-    combine(wav_files[start:end],'/Volumes/Seagate Expansion Drive/dph069_wav_filtered_combined/%05d_%05d.wav'%(start,end))
-for file in glob.glob('../dataj7054_f6552_combined/chan6/*/*.wav'):
-    rate, data = wavfile.read(file)
-    reduced_noise = nr.reduce_noise(y=data, sr=rate)
-    # perform noise reduction
-    folder, fname = os.path.split(file)
-
-    wavfile.write(os.path.join('../dataj7054_f6552_combined/chan6_filter_denoised',
-                               os.path.split(folder)[-1] + 'filter_denoised.wav'), rate, reduced_noise)
+# wav_files = sorted(glob.glob('/Volumes/Seagate Expansion Drive/dph069_wav_filtered/*.wav'))
+# for start in range(0,len(wav_files),25):
+#     end = np.min([len(wav_files), start+25])
+#     combine(wav_files[start:end],'/Volumes/Seagate Expansion Drive/dph069_wav_filtered_combined/%05d_%05d.wav'%(start,end))
+# for file in glob.glob('../dataj7054_f6552_combined/chan6/*/*.wav'):
+#     rate, data = wavfile.read(file)
+#     reduced_noise = nr.reduce_noise(y=data, sr=rate)
+#     # perform noise reduction
+#     folder, fname = os.path.split(file)
+#
+#     wavfile.write(os.path.join('../dataj7054_f6552_combined/chan6_filter_denoised',
+#                                os.path.split(folder)[-1] + 'filter_denoised.wav'), rate, reduced_noise)
